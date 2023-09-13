@@ -38,6 +38,24 @@ Powerful Query Language: Can leverage SQL for complex queries.
 Relationships: Supports complex relationships between classes.
 
 
+ ```sql
+   BaseModel
+      ^
+      |
+  +---+---+---+---+---+---+
+  |   |   |   |   |   |   |
+State City User Place Review Amenity
+  |   |   |   |   |   |
+  +---+---+---+---+---+
+      |       |       |
+      +-------+-------+
+              |
+          DBStorage
+
+ ```
+
+
+
 ### 4. Console (Command Interpreter)
 
 The `HBNBCommand` class serves as a command interpreter. Supported commands include:
