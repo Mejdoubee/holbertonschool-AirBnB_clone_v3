@@ -6,6 +6,7 @@ import unittest
 from models.engine.db_storage import DBStorage
 from models.base_model import BaseModel
 from models.state import State
+from models.city import City
 from models import storage
 
 
@@ -34,6 +35,18 @@ class TestDBStorageMethods(unittest.TestCase):
         self.assertEqual(retrieved_state.id, self.state.id)
         self.assertEqual(retrieved_state.name, "California")
         self.assertIsInstance(retrieved_state, State)
+
+    def test_count_method(self):
+        """
+        Test if the count method returns the correct number of objects
+        """
+        count_all = storage.count()
+        count_state = storage.count(State)
+        count_city = storage.count(City)
+
+        self.assertEqual(count_all, 2)
+        self.assertEqual(count_state, 1)
+        self.assertEqual(count_city, 1)
 
 
 if __name__ == "__main__":
