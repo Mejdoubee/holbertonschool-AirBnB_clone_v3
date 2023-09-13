@@ -13,6 +13,15 @@ from models.review import Review
 from models.amenity import Amenity
 import os
 
+class_mapping = {
+    "User": User,
+    "Place": Place,
+    "State": State,
+    "City": City,
+    "Amenity": Amenity,
+    "Review": Review
+}
+
 
 class DBStorage:
     """
@@ -89,3 +98,19 @@ class DBStorage:
         """
         if self.__session:
             self.__session.remove()
+
+    def get(self, cls, id):
+        """Retrieve one object"""
+        if cls:
+            return self.__session.query(cls).get(id)
+        return None
+
+    def count(self, cls=None):
+        """Count the number of objects in storage"""
+        if cls:
+            return self.__session.query(cls).count()
+        else:
+            total = 0
+            for class_entity in class_mapping.values():
+                total += self.__session.query(class_entity).count()
+            return total
