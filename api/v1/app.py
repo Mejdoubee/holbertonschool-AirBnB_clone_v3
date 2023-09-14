@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 '''
-Module that defines the first endpoint
+Module that defines the first endpoint.
 '''
 from flask import Flask, jsonify
 from models import storage
@@ -28,8 +28,8 @@ if __name__ == "__main__":
 
 
 @app.errorhandler(404)
-def not_found_error(error):
+def not_found(error):
     '''
     Handler for 404 errors that returns a JSON-formatted 404 response.
     '''
-    return jsonify({"error": "Not found"})
+    return jsonify({"error": "Not found"}), 404
