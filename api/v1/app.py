@@ -25,3 +25,11 @@ if __name__ == "__main__":
         port=int(getenv('HBNB_API_PORT', 5000)),
         threaded=True
     )
+
+
+@app.errorhandler(404)
+def not_found_error(error):
+    '''
+    Handler for 404 errors that returns a JSON-formatted 404 response.
+    '''
+    return jsonify({"error": "Not found"})
