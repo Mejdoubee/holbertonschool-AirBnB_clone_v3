@@ -10,7 +10,11 @@ from models.state import State
 from api.v1.views import app_views
 
 
-@app_views.route('/states/<state_id>/cities', methods=['GET'], strict_slashes=False)
+@app_views.route(
+    '/states/<state_id>/cities',
+    methods=['GET'],
+    strict_slashes=False
+)
 def get_cities_of_state(state_id):
     '''
     Retrieves the list of all City objects of a State
@@ -48,7 +52,11 @@ def delete_city(city_id):
         abort(404)
 
 
-@app_views.route('/states/<state_id>/cities', methods=['POST'], strict_slashes=False)
+@app_views.route(
+    '/states/<state_id>/cities',
+    methods=['POST'],
+    strict_slashes=False
+)
 def create_city_in_state(state_id):
     '''
     Creates a City in a State.
@@ -65,6 +73,7 @@ def create_city_in_state(state_id):
     new_city = City(**data_request)
     new_city.save()
     return jsonify(new_city.to_dict()), 201
+
 
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def update_city(city_id):
