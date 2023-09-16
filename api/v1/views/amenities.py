@@ -24,9 +24,9 @@ def get_amenities_list():
     methods=['GET'],
     strict_slashes=False
 )
-def get_amenities_object(amenity_id):
+def get_amenity_object(amenity_id):
     '''
-    Retrieves an Amenity objects based on id
+    Retrieves an Amenity object based on id
     '''
     amenity_obj = storage.get(Amenity, amenity_id)
     if amenity_obj:
@@ -35,14 +35,14 @@ def get_amenities_object(amenity_id):
         abort(404)
 
 
-app_views.route(
+@app_views.route(
     '/amenities/<amenity_id>',
     methods=['DELETE'],
     strict_slashes=False
 )
-def delete_amenity_obj(amenity_id):
+def delete_amenity_object(amenity_id):
     '''
-    Delete an Amenity objects based on id
+    Deletes an Amenity object based on id
     '''
     amenity_obj = storage.get(Amenity, amenity_id)
     if amenity_obj:
@@ -53,17 +53,17 @@ def delete_amenity_obj(amenity_id):
         abort(404)
 
 
-app_views.route('/amenities', methods=['POST'], strict_slashes=False)
+@app_views.route('/amenities', methods=['POST'], strict_slashes=False)
 def create_amenity():
     '''
     Creates an Amenity
     '''
-    Data = request.get_json()
-    if not Data:
+    data = request.get_json()
+    if not data:
         abort(400, 'Not a JSON')
-    if 'name' not in Data:
+    if 'name' not in data:
         abort(400, 'Missing name')
-    amenity = Amenity(**Data)
+    amenity = Amenity(**data)
     amenity.save()
     return jsonify(amenity.to_dict()), 201
 
@@ -80,10 +80,10 @@ def update_amenity(amenity_id):
     amenity_obj = storage.get(Amenity, amenity_id)
     if not amenity_obj:
         abort(404)
-    Data = request.get_json()
-    if not Data:
+    data = request.get_json()
+    if not data:
         abort(400, 'Not a JSON')
-    for key, value in Data.items():
+    for key, value in data.items():
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(amenity_obj, key, value)
     amenity_obj.save()
