@@ -10,6 +10,7 @@ from models.place import Place
 from models.user import User
 from api.v1.views import app_views
 
+
 @app_views.route(
     '/places/<place_id>/reviews',
     methods=['GET'],
@@ -87,7 +88,11 @@ def create_review(place_id):
     return jsonify(review.to_dict()), 201
 
 
-@app_views.route('/reviews/<review_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route(
+    '/reviews/<review_id>',
+    methods=['PUT'],
+    strict_slashes=False
+)
 def update_review(review_id):
     '''
     Updates a Review object based on review_id
@@ -99,7 +104,13 @@ def update_review(review_id):
     if not data:
         abort(400, 'Not a JSON')
     for key, value in data.items():
-        if key not in ['id', 'user_id', 'place_id', 'created_at', 'updated_at']:
+        if key not in [
+            'id',
+            'user_id',
+            'place_id',
+            'created_at',
+            'updated_at'
+        ]:
             setattr(review, key, value)
     review.save()
     return jsonify(review.to_dict()), 200
