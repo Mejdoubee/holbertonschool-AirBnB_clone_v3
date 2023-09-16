@@ -38,10 +38,12 @@ class FileStorage:
         """
         if not cls:
             return self.__objects
-        else:
+        if issubclass(cls, BaseModel):
             return {
                 k: v for k, v in self.__objects.items() if isinstance(v, cls)
             }
+        else:
+            return {}
 
     def new(self, obj):
         """
