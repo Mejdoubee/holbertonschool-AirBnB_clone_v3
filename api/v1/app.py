@@ -20,7 +20,7 @@ def close_storage(exception):
     storage.close()
 
 
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/api/*": {"origins": "0.0.0.0"}})
 
 
 @app.errorhandler(404)
