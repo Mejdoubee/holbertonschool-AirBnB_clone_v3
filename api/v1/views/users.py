@@ -9,7 +9,7 @@ from models.user import User
 from api.v1.views import app_views
 
 
-app_views.route('/users', methods=['GET'], strict_slashes=False)
+@app_views.route('/users', methods=['GET'], strict_slashes=False)
 def get_users_list():
     '''
     Retrieves the list of all User objects
@@ -19,7 +19,7 @@ def get_users_list():
     )
 
 
-app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
 def get_user(user_id):
     '''
     Retrieves a User object based on user_id
@@ -31,7 +31,7 @@ def get_user(user_id):
         return jsonify(user_obj.to_dict())
 
 
-app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
 def delete_user(user_id):
     '''
     Deletes a User object based on user_id
