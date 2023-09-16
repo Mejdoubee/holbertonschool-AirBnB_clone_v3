@@ -78,6 +78,9 @@ def create_amenity():
     strict_slashes=False
 )
 def update_amenity(amenity_id):
+    '''
+    Updates an Amenity object
+    '''
     amenity_obj = storage.get(Amenity, amenity_id)
     if not amenity_obj:
         abort(404)
