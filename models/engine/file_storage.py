@@ -126,6 +126,6 @@ class FileStorage:
             return len(self.all(cls))
 
         total_count = 0
-        for class_name in class_mapping.keys():
+        for class_name in class_mapping:
             total_count += len(self.all(class_name))
         return total_count
