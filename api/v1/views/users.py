@@ -15,7 +15,7 @@ def get_users_list():
     Retrieves the list of all User objects
     '''
     return jsonify(
-        [user.to_dict() for user in storage.all(User).values()]
+        [user_obj.to_dict() for user_obj in storage.all(User).values()]
     )
 
 
@@ -24,11 +24,11 @@ def get_user(user_id):
     '''
     Retrieves a User object based on user_id
     '''
-    user = storage.get(User, user_id)
-    if not user:
+    user_obj = storage.get(User, user_id)
+    if not user_obj:
         abort(404)
     else:
-        return jsonify(user.to_dict())
+        return jsonify(user_obj.to_dict())
 
 
 app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
@@ -36,11 +36,11 @@ def delete_user(user_id):
     '''
     Deletes a User object based on user_id
     '''
-    user = storage.get(User, user_id)
-    if not user:
+    user_obj = storage.get(User, user_id)
+    if not user_obj:
         abort(404)
     else:
-        storage.delete(user)
+        storage.delete(user_obj)
         storage.save()
         return jsonify({}), 200
 
@@ -57,9 +57,9 @@ def create_user():
         abort(400, 'Missing email')
     if 'password' not in data:
         abort(400, 'Missing password')
-    user = User(**data)
-    user.save()
-    return jsonify(user.to_dict()), 201
+    user_obj = User(**data)
+    user_obj.save()
+    return jsonify(user_obj.to_dict()), 201
 
 
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
@@ -67,14 +67,14 @@ def update_user(user_id):
     '''
     Updates a User object based on user_id
     '''
-    user = storage.get(User, user_id)
-    if not user:
+    user_obj = storage.get(User, user_id)
+    if not user_obj:
         abort(404)
     data = request.get_json()
     if not data:
         abort(400, 'Not a JSON')
     for key, value in data.items():
         if key not in ['id', 'email', 'created_at', 'updated_at']:
-            setattr(user, key, value)
-    user.save()
-    return jsonify(user.to_dict()), 200
+            setattr(user_obj, key, value)
+    user_obj.save()
+    return jsonify(user_obj.to_dict()), 200
