@@ -40,8 +40,6 @@ app_views.route(
     methods=['DELETE'],
     strict_slashes=False
 )
-
-
 def delete_amenity_obj(amenity_id):
     '''
     Delete an Amenity objects based on id
@@ -56,8 +54,6 @@ def delete_amenity_obj(amenity_id):
 
 
 app_views.route('/amenities', methods=['POST'], strict_slashes=False)
-
-
 def create_amenity():
     '''
     Creates an Amenity
